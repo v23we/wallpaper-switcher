@@ -161,27 +161,29 @@ struct ContentView: View {
 
     @ViewBuilder
     private var wallpapersSection: some View {
-        if viewModel.wallpapers.isEmpty {
-            GroupBox("扫描结果") {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("未扫描到壁纸资源")
-                        .font(.headline)
+        GeometryReader { proxy in
+            if viewModel.isInitialLoading && !viewModel.hasLoadedOnce {
+                WallpaperLoadingSectionView(availableWidth: proxy.size.width)
+            } else if viewModel.hasLoadedOnce && viewModel.wallpapers.isEmpty {
+                GroupBox("扫描结果") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("未扫描到壁纸资源")
+                            .font(.headline)
 
-                    Text("尝试过的路径：")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        Text("尝试过的路径：")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
 
-                    ForEach(viewModel.attemptedPaths, id: \.self) { path in
-                        Text(path)
-                            .font(.system(size: 11, weight: .regular, design: .monospaced))
-                            .textSelection(.enabled)
+                        ForEach(viewModel.attemptedPaths, id: \.self) { path in
+                            Text(path)
+                                .font(.system(size: 11, weight: .regular, design: .monospaced))
+                                .textSelection(.enabled)
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.vertical, 4)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 4)
-            }
-        } else {
-            GeometryReader { proxy in
+            } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         if !viewModel.dynamicItems.isEmpty {
@@ -210,6 +212,44 @@ struct ContentView: View {
                     .padding(.bottom, 2)
                 }
             }
+        }
+    }
+}
+
+private struct WallpaperLoadingSectionView: View {
+    let availableWidth: CGFloat
+
+    private var layoutMode: WallpaperSectionLayoutMode {
+        WallpaperSectionLayoutMode.forWidth(availableWidth)
+    }
+
+    private let columns = [
+        GridItem(.adaptive(minimum: 180, maximum: 260), spacing: 16)
+    ]
+
+    var body: some View {
+        GroupBox {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Loading wallpapers...")
+                    .font(.headline)
+
+                switch layoutMode {
+                case .grid:
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 16) {
+                        ForEach(0..<6, id: \.self) { _ in
+                            WallpaperCardSkeletonView()
+                        }
+                    }
+                case .list:
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(0..<5, id: \.self) { _ in
+                            WallpaperListRowSkeletonView()
+                        }
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 4)
         }
     }
 }
@@ -294,6 +334,18 @@ private struct WallpaperSectionView: View {
     }
 }
 
+private struct SkeletonBlock: View {
+    let width: CGFloat?
+    let height: CGFloat
+    let cornerRadius: CGFloat
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: cornerRadius)
+            .fill(Color(NSColor.quaternaryLabelColor).opacity(0.12))
+            .frame(width: width, height: height)
+    }
+}
+
 private struct StatusRow: View {
     let title: String
     let value: String
@@ -309,6 +361,63 @@ private struct StatusRow: View {
                 .foregroundStyle(.secondary)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+}
+
+private struct WallpaperCardSkeletonView: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Rectangle()
+                .fill(Color.clear)
+                .aspectRatio(16.0 / 10.0, contentMode: .fit)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(NSColor.quaternaryLabelColor).opacity(0.10))
+                }
+
+            SkeletonBlock(width: nil, height: 16, cornerRadius: 6)
+            SkeletonBlock(width: 72, height: 20, cornerRadius: 10)
+            SkeletonBlock(width: nil, height: 12, cornerRadius: 5)
+            SkeletonBlock(width: 150, height: 12, cornerRadius: 5)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(NSColor.controlColor))
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.black.opacity(0.05), lineWidth: 1)
+        }
+    }
+}
+
+private struct WallpaperListRowSkeletonView: View {
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color(NSColor.quaternaryLabelColor).opacity(0.10))
+                .frame(width: 122, height: 76)
+
+            VStack(alignment: .leading, spacing: 7) {
+                SkeletonBlock(width: nil, height: 16, cornerRadius: 6)
+                SkeletonBlock(width: 72, height: 20, cornerRadius: 10)
+                SkeletonBlock(width: nil, height: 12, cornerRadius: 5)
+                SkeletonBlock(width: 180, height: 12, cornerRadius: 5)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(NSColor.controlColor))
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(Color.black.opacity(0.05), lineWidth: 1)
         }
     }
 }

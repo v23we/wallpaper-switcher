@@ -6,7 +6,7 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>46AC6B7B-DEA7-46A1-862E-D758B9E87B18</key>
+		<key>FC57C712-2D31-421E-BD7E-1E5930A4F1F9</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>46AC6B7B-DEA7-46A1-862E-D758B9E87B18.xcactivitylog</string>
+			<string>FC57C712-2D31-421E-BD7E-1E5930A4F1F9.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -40,97 +40,13 @@
 			<key>signature</key>
 			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
 			<key>timeStartedRecording</key>
-			<real>796026463.32991898</real>
+			<real>796026967.81538403</real>
 			<key>timeStoppedRecording</key>
-			<real>796026466.46262503</real>
+			<real>796026970.67350197</real>
 			<key>title</key>
 			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
 			<key>uniqueIdentifier</key>
-			<string>46AC6B7B-DEA7-46A1-862E-D758B9E87B18</string>
-		</dict>
-		<key>98E005E9-BBAD-4E33-9A46-9874EA237065</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>98E005E9-BBAD-4E33-9A46-9874EA237065.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>WallpaperSwitcher project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>WallpaperSwitcher</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
-			<key>timeStartedRecording</key>
-			<real>796026663.32589996</real>
-			<key>timeStoppedRecording</key>
-			<real>796026666.06563103</real>
-			<key>title</key>
-			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
-			<key>uniqueIdentifier</key>
-			<string>98E005E9-BBAD-4E33-9A46-9874EA237065</string>
-		</dict>
-		<key>D6B2664E-4E55-4928-BB4D-C02B1081E9E2</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>D6B2664E-4E55-4928-BB4D-C02B1081E9E2.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>WallpaperSwitcher project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>WallpaperSwitcher</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
-			<key>timeStartedRecording</key>
-			<real>796026145.21012497</real>
-			<key>timeStoppedRecording</key>
-			<real>796026148.02608097</real>
-			<key>title</key>
-			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
-			<key>uniqueIdentifier</key>
-			<string>D6B2664E-4E55-4928-BB4D-C02B1081E9E2</string>
+			<string>FC57C712-2D31-421E-BD7E-1E5930A4F1F9</string>
 		</dict>
 	</dict>
 </dict>
