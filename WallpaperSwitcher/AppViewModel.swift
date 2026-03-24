@@ -92,7 +92,7 @@ final class AppViewModel: ObservableObject {
         let storedDays = storedDaysObject == nil ? 0 : userDefaults.integer(forKey: UserDefaultsKey.intervalDays)
         let storedHours = storedHoursObject == nil ? 0 : userDefaults.integer(forKey: UserDefaultsKey.intervalHours)
         let storedMinutes = storedMinutesObject == nil ? 5 : userDefaults.integer(forKey: UserDefaultsKey.intervalMinutes)
-        let normalized = AppViewModel.normalizedInterval(days: storedDays, hours: storedHours, minutes: storedMinutes)
+        let normalized = AppViewModel.normalizeInterval(days: storedDays, hours: storedHours, minutes: storedMinutes)
         self.intervalDays = normalized.days
         self.intervalHours = normalized.hours
         self.intervalMinutes = normalized.minutes
@@ -205,7 +205,7 @@ final class AppViewModel: ObservableObject {
         let nextDays = days ?? intervalDays
         let nextHours = hours ?? intervalHours
         let nextMinutes = minutes ?? intervalMinutes
-        let normalized = AppViewModel.normalizedInterval(days: nextDays, hours: nextHours, minutes: nextMinutes)
+        let normalized = AppViewModel.normalizeInterval(days: nextDays, hours: nextHours, minutes: nextMinutes)
 
         isAdjustingIntervalInternally = true
         intervalDays = normalized.days
@@ -284,16 +284,25 @@ final class AppViewModel: ObservableObject {
         return "每 " + components.joined(separator: " ")
     }
 
-    private static func normalizedInterval(days: Int, hours: Int, minutes: Int) -> (days: Int, hours: Int, minutes: Int) {
-        let clampedDays = min(max(days, 0), 99)
-        let clampedHours = min(max(hours, 0), 23)
-        let clampedMinutes = min(max(minutes, 0), 59)
+    private static func normalizeInterval(days: Int, hours: Int, minutes: Int) -> (days: Int, hours: Int, minutes: Int) {
+        let safeDays = max(days, 0)
+        let safeHours = max(hours, 0)
+        let safeMinutes = max(minutes, 0)
+        let maxTotalMinutes = ((99 * 24) + 23) * 60 + 59
+        var totalMinutes = (safeDays * 24 * 60) + (safeHours * 60) + safeMinutes
 
-        if clampedDays == 0, clampedHours == 0, clampedMinutes == 0 {
-            return (0, 0, 1)
+        if totalMinutes <= 0 {
+            totalMinutes = 1
         }
 
-        return (clampedDays, clampedHours, clampedMinutes)
+        totalMinutes = min(totalMinutes, maxTotalMinutes)
+
+        let normalizedDays = totalMinutes / (24 * 60)
+        let remainingMinutes = totalMinutes % (24 * 60)
+        let normalizedHours = remainingMinutes / 60
+        let normalizedMinutes = remainingMinutes % 60
+
+        return (normalizedDays, normalizedHours, normalizedMinutes)
     }
 
     private func rebuildSections(from items: [WallpaperItem]) {
