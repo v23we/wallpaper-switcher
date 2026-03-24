@@ -5,6 +5,15 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel: AppViewModel
 
+    private static let intervalValueFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.generatesDecimalNumbers = false
+        formatter.allowsFloats = false
+        formatter.usesGroupingSeparator = false
+        return formatter
+    }()
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             controlsSection
@@ -15,43 +24,110 @@ struct ContentView: View {
     }
 
     private var controlsSection: some View {
-        HStack(spacing: 12) {
-            Button("Refresh Scan") {
-                viewModel.refreshScan()
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 12) {
+                Button("Refresh Scan") {
+                    viewModel.refreshScan()
+                }
+
+                Button("Shuffle Now") {
+                    viewModel.shuffleNow()
+                }
+                .disabled(viewModel.wallpapers.isEmpty)
+
+                Button("Start Auto Shuffle") {
+                    viewModel.startAutoShuffle()
+                }
+                .disabled(viewModel.wallpapers.isEmpty || viewModel.isAutoShuffleRunning)
+
+                Button("Stop Auto Shuffle") {
+                    viewModel.stopAutoShuffle()
+                }
+                .disabled(!viewModel.isAutoShuffleRunning)
+
+                Spacer()
+
+                Picker("Shuffle Scope", selection: $viewModel.selectedShuffleScope) {
+                    ForEach(AppViewModel.ShuffleScope.allCases) { scope in
+                        Text(scope.rawValue).tag(scope)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .frame(width: 260)
             }
 
-            Button("Shuffle Now") {
-                viewModel.shuffleNow()
-            }
-            .disabled(viewModel.wallpapers.isEmpty)
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .center, spacing: 8) {
+                    Text("Interval")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
 
-            Button("Start Auto Shuffle") {
-                viewModel.startAutoShuffle()
-            }
-            .disabled(viewModel.wallpapers.isEmpty || viewModel.isAutoShuffleRunning)
+                    ForEach(viewModel.intervalPresetOptions) { preset in
+                        Button {
+                            viewModel.applyIntervalPreset(preset)
+                        } label: {
+                            Text(preset.label)
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundStyle(viewModel.activeIntervalPreset == preset ? Color.accentColor : Color.primary.opacity(0.78))
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .background(
+                                    Capsule()
+                                        .fill(
+                                            viewModel.activeIntervalPreset == preset
+                                            ? Color.accentColor.opacity(0.10)
+                                            : Color(NSColor.controlBackgroundColor)
+                                        )
+                                )
+                                .overlay(
+                                    Capsule()
+                                        .stroke(
+                                            viewModel.activeIntervalPreset == preset
+                                            ? Color.accentColor.opacity(0.22)
+                                            : Color.primary.opacity(0.08),
+                                            lineWidth: 1
+                                        )
+                                )
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
 
-            Button("Stop Auto Shuffle") {
-                viewModel.stopAutoShuffle()
-            }
-            .disabled(!viewModel.isAutoShuffleRunning)
+                HStack(alignment: .center, spacing: 8) {
+                    Text("Custom")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .frame(width: 52, alignment: .leading)
 
-            Spacer()
+                    TextField(
+                        "",
+                        value: Binding(
+                            get: { viewModel.intervalHours },
+                            set: { viewModel.updateInterval(hours: $0) }
+                        ),
+                        formatter: Self.intervalValueFormatter
+                    )
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 52)
 
-            Picker("Shuffle Scope", selection: $viewModel.selectedShuffleScope) {
-                ForEach(AppViewModel.ShuffleScope.allCases) { scope in
-                    Text(scope.rawValue).tag(scope)
+                    Text("h")
+                        .foregroundStyle(.secondary)
+
+                    TextField(
+                        "",
+                        value: Binding(
+                            get: { viewModel.intervalMinutes },
+                            set: { viewModel.updateInterval(minutes: $0) }
+                        ),
+                        formatter: Self.intervalValueFormatter
+                    )
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 52)
+
+                    Text("min")
+                        .foregroundStyle(.secondary)
                 }
             }
-            .pickerStyle(.segmented)
-            .frame(width: 260)
-
-            Picker("Interval", selection: $viewModel.selectedInterval) {
-                ForEach(AppViewModel.ShuffleInterval.allCases) { interval in
-                    Text(interval.rawValue).tag(interval)
-                }
-            }
-            .pickerStyle(.segmented)
-            .frame(width: 240)
         }
     }
 

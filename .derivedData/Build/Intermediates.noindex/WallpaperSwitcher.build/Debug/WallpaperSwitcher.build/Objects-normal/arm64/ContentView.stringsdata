@@ -7,7 +7,7 @@
         "key": "状态",
         "location": {
           "startingColumn": 18,
-          "startingLine": 59
+          "startingLine": 135
         }
       },
       {
@@ -15,55 +15,95 @@
         "key": "扫描结果",
         "location": {
           "startingColumn": 22,
-          "startingLine": 75
+          "startingLine": 151
         }
       },
       {
         "comment": "",
         "key": "Refresh Scan",
         "location": {
-          "startingColumn": 20,
-          "startingLine": 19
+          "startingColumn": 24,
+          "startingLine": 29
         }
       },
       {
         "comment": "",
         "key": "Shuffle Now",
         "location": {
-          "startingColumn": 20,
-          "startingLine": 23
+          "startingColumn": 24,
+          "startingLine": 33
         }
       },
       {
         "comment": "",
         "key": "Start Auto Shuffle",
         "location": {
-          "startingColumn": 20,
-          "startingLine": 28
+          "startingColumn": 24,
+          "startingLine": 38
         }
       },
       {
         "comment": "",
         "key": "Stop Auto Shuffle",
         "location": {
-          "startingColumn": 20,
-          "startingLine": 33
+          "startingColumn": 24,
+          "startingLine": 43
         }
       },
       {
         "comment": "",
         "key": "Shuffle Scope",
         "location": {
-          "startingColumn": 20,
-          "startingLine": 40
+          "startingColumn": 24,
+          "startingLine": 50
         }
       },
       {
         "comment": "",
         "key": "Interval",
         "location": {
-          "startingColumn": 20,
-          "startingLine": 48
+          "startingColumn": 26,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "Custom",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "h",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "min",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "",
+        "location": {
+          "startingColumn": 25,
+          "startingLine": 117
         }
       },
       {
@@ -71,7 +111,7 @@
         "key": "未扫描到壁纸资源",
         "location": {
           "startingColumn": 26,
-          "startingLine": 77
+          "startingLine": 153
         }
       },
       {
@@ -79,7 +119,7 @@
         "key": "尝试过的路径：",
         "location": {
           "startingColumn": 26,
-          "startingLine": 80
+          "startingLine": 156
         }
       },
       {
@@ -87,7 +127,7 @@
         "key": "%@ (%lld)",
         "location": {
           "startingColumn": 26,
-          "startingLine": 137
+          "startingLine": 213
         }
       },
       {
@@ -95,7 +135,7 @@
         "key": "active",
         "location": {
           "startingColumn": 30,
-          "startingLine": 141
+          "startingLine": 217
         }
       },
       {
@@ -103,7 +143,7 @@
         "key": "Current",
         "location": {
           "startingColumn": 34,
-          "startingLine": 223
+          "startingLine": 299
         }
       }
     ]
