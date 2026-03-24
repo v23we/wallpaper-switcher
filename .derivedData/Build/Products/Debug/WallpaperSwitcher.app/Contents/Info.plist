@@ -10,6 +10,8 @@
 	<string>WallpaperSwitcher</string>
 	<key>CFBundleExecutable</key>
 	<string>WallpaperSwitcher</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.lcy.WallpaperSwitcher</string>
 	<key>CFBundleInfoDictionaryVersion</key>

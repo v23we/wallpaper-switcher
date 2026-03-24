@@ -14,6 +14,7 @@
 		0A1B2C3D4E5F607182930005 /* WallpaperShuffleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B2C3D4E5F607182930105 /* WallpaperShuffleService.swift */; };
 		0A1B2C3D4E5F607182930006 /* BuiltInDisplayResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B2C3D4E5F607182930106 /* BuiltInDisplayResolver.swift */; };
 		0A1B2C3D4E5F607182930007 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1B2C3D4E5F607182930107 /* AppViewModel.swift */; };
+		2BD068A72F727E1200FB9B91 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2BD068A62F727E1200FB9B91 /* AppIcon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		0A1B2C3D4E5F607182930106 /* BuiltInDisplayResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltInDisplayResolver.swift; sourceTree = "<group>"; };
 		0A1B2C3D4E5F607182930107 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		0A1B2C3D4E5F607182930201 /* WallpaperSwitcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WallpaperSwitcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BD068A62F727E1200FB9B91 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +50,6 @@
 		};
 		0A1B2C3D4E5F607182930402 /* WallpaperSwitcher */ = {
 			isa = PBXGroup;
-			path = WallpaperSwitcher;
-			sourceTree = "<group>";
 			children = (
 				0A1B2C3D4E5F607182930101 /* AppEntry.swift */,
 				0A1B2C3D4E5F607182930102 /* ContentView.swift */,
@@ -58,7 +58,10 @@
 				0A1B2C3D4E5F607182930105 /* WallpaperShuffleService.swift */,
 				0A1B2C3D4E5F607182930106 /* BuiltInDisplayResolver.swift */,
 				0A1B2C3D4E5F607182930107 /* AppViewModel.swift */,
+				2BD068A62F727E1200FB9B91 /* AppIcon.icns */,
 			);
+			path = WallpaperSwitcher;
+			sourceTree = "<group>";
 		};
 		0A1B2C3D4E5F607182930403 /* Products */ = {
 			isa = PBXGroup;
@@ -126,6 +129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BD068A72F727E1200FB9B91 /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,14 +192,15 @@
 		0A1B2C3D4E5F607182930803 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WallpaperSwitcher;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
+					ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+					ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+					CODE_SIGN_STYLE = Automatic;
+					CURRENT_PROJECT_VERSION = 1;
+					GENERATE_INFOPLIST_FILE = NO;
+					INFOPLIST_FILE = WallpaperSwitcher/Info.plist;
+					LD_RUNPATH_SEARCH_PATHS = (
+						"$(inherited)",
+						"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
@@ -210,14 +215,15 @@
 		0A1B2C3D4E5F607182930804 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = WallpaperSwitcher;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
+					ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+					ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+					CODE_SIGN_STYLE = Automatic;
+					CURRENT_PROJECT_VERSION = 1;
+					GENERATE_INFOPLIST_FILE = NO;
+					INFOPLIST_FILE = WallpaperSwitcher/Info.plist;
+					LD_RUNPATH_SEARCH_PATHS = (
+						"$(inherited)",
+						"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;

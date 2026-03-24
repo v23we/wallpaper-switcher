@@ -1,0 +1,89 @@
+{
+  "" : {
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperSwitcher-primary.dia",
+    "emit-module-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperSwitcher-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperSwitcher-primary-emit-module.dia",
+    "pch" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperSwitcher-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperSwitcher-primary.swiftdeps"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/AppEntry.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppEntry~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/AppViewModel.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/AppViewModel~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/BuiltInDisplayResolver.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/BuiltInDisplayResolver~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/ContentView.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/WallpaperItem.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperItem~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/WallpaperScanner.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperScanner~partial.swiftmodule"
+  },
+  "/Users/lcy/Code/wallpaper-switcher/WallpaperSwitcher/WallpaperShuffleService.swift" : {
+    "const-values" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.swiftconstvalues",
+    "dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.d",
+    "diagnostics" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.dia",
+    "index-unit-output-path" : "/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.o",
+    "llvm-bc" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.bc",
+    "object" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.o",
+    "swift-dependencies" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService.swiftdeps",
+    "swiftmodule" : "/Users/lcy/Code/wallpaper-switcher/.derivedData/Build/Intermediates.noindex/WallpaperSwitcher.build/Debug/WallpaperSwitcher.build/Objects-normal/arm64/WallpaperShuffleService~partial.swiftmodule"
+  }
+}

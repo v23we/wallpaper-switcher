@@ -12,14 +12,6 @@
       },
       {
         "comment": "",
-        "key": "扫描结果",
-        "location": {
-          "startingColumn": 22,
-          "startingLine": 165
-        }
-      },
-      {
-        "comment": "",
         "key": "Refresh Scan",
         "location": {
           "startingColumn": 24,
@@ -124,18 +116,34 @@
       },
       {
         "comment": "",
-        "key": "未扫描到壁纸资源",
+        "key": "扫描结果",
         "location": {
           "startingColumn": 26,
-          "startingLine": 167
+          "startingLine": 168
+        }
+      },
+      {
+        "comment": "",
+        "key": "未扫描到壁纸资源",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 170
         }
       },
       {
         "comment": "",
         "key": "尝试过的路径：",
         "location": {
-          "startingColumn": 26,
-          "startingLine": 170
+          "startingColumn": 30,
+          "startingLine": 173
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading wallpapers...",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 233
         }
       },
       {
@@ -143,7 +151,7 @@
         "key": "%@ (%lld)",
         "location": {
           "startingColumn": 26,
-          "startingLine": 246
+          "startingLine": 286
         }
       },
       {
@@ -151,7 +159,7 @@
         "key": "active",
         "location": {
           "startingColumn": 30,
-          "startingLine": 250
+          "startingLine": 290
         }
       },
       {
@@ -159,7 +167,7 @@
         "key": "Current",
         "location": {
           "startingColumn": 30,
-          "startingLine": 350
+          "startingLine": 459
         }
       },
       {
@@ -167,7 +175,7 @@
         "key": "Current",
         "location": {
           "startingColumn": 34,
-          "startingLine": 432
+          "startingLine": 541
         }
       }
     ]

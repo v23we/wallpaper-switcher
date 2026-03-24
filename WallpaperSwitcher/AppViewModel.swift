@@ -2,6 +2,11 @@ import Foundation
 
 @MainActor
 final class AppViewModel: ObservableObject {
+    private struct CachedWallpaperItem: Codable {
+        let filePath: String
+        let categoryGuessRawValue: String
+    }
+
     struct IntervalPreset: Identifiable, Hashable {
         let label: String
         let days: Int
@@ -38,6 +43,9 @@ final class AppViewModel: ObservableObject {
     @Published private(set) var currentWallpaperPath = "未读取"
     @Published private(set) var lastErrorMessage = "无"
     @Published private(set) var autoShuffleStatusText = "未启动"
+    @Published private(set) var isInitialLoading = true
+    @Published private(set) var hasLoadedOnce = false
+    @Published private(set) var cachedItemsLoaded = false
     @Published var selectedShuffleScope: ShuffleScope = .all
     @Published var intervalDays: Int {
         didSet {
@@ -73,6 +81,7 @@ final class AppViewModel: ObservableObject {
     ]
 
     private enum UserDefaultsKey {
+        static let cachedWallpaperItems = "WallpaperSwitcher.cachedWallpaperItems"
         static let intervalDays = "WallpaperSwitcher.intervalDays"
         static let intervalHours = "WallpaperSwitcher.intervalHours"
         static let intervalMinutes = "WallpaperSwitcher.intervalMinutes"
@@ -100,31 +109,26 @@ final class AppViewModel: ObservableObject {
     }
 
     func initialLoad() {
-        refreshScan()
         shuffleService.refreshCurrentWallpaper()
+        loadCachedWallpapersIfAvailable()
         syncState()
+        refreshScan(isInitialLoad: true)
     }
 
-    func refreshScan() {
-        let result = scanner.scan()
-        wallpapers = result.items
-        rebuildSections(from: result.items)
-        attemptedPaths = result.attemptedPaths
-        wallpaperCount = result.items.count
-
-        if result.items.isEmpty {
-            latestScanMessage = result.warnings.isEmpty ? "未扫描到壁纸资源" : result.warnings.joined(separator: "\n")
-        } else {
-            latestScanMessage = result.warnings.isEmpty ? nil : result.warnings.joined(separator: "\n")
+    func refreshScan(isInitialLoad: Bool = false) {
+        if isInitialLoad && !cachedItemsLoaded {
+            isInitialLoading = true
         }
 
-        if shuffleService.isAutoShuffleRunning {
-            shuffleService.startAutoShuffle(interval: effectiveIntervalSeconds) { [weak self] in
-                self?.currentShufflePool ?? []
+        Task { [weak self, scanner] in
+            let result = await Task.detached(priority: .userInitiated) {
+                scanner.scan()
+            }.value
+
+            await MainActor.run {
+                self?.applyScanResult(result, markInitialLoadCompleted: true)
             }
         }
-
-        syncState()
     }
 
     func shuffleNow() {
@@ -239,6 +243,34 @@ final class AppViewModel: ObservableObject {
         }
     }
 
+    private func applyScanResult(_ result: WallpaperScanner.ScanResult, markInitialLoadCompleted: Bool) {
+        wallpapers = result.items
+        rebuildSections(from: result.items)
+        attemptedPaths = result.attemptedPaths
+        wallpaperCount = result.items.count
+
+        if result.items.isEmpty {
+            latestScanMessage = result.warnings.isEmpty ? "未扫描到壁纸资源" : result.warnings.joined(separator: "\n")
+        } else {
+            latestScanMessage = result.warnings.isEmpty ? nil : result.warnings.joined(separator: "\n")
+        }
+
+        persistCachedWallpapers(result.items)
+
+        if markInitialLoadCompleted {
+            isInitialLoading = false
+            hasLoadedOnce = true
+        }
+
+        if shuffleService.isAutoShuffleRunning {
+            shuffleService.startAutoShuffle(interval: effectiveIntervalSeconds) { [weak self] in
+                self?.currentShufflePool ?? []
+            }
+        }
+
+        syncState()
+    }
+
     private func handleIntervalComponentChange() {
         guard !isAdjustingIntervalInternally else {
             return
@@ -260,6 +292,48 @@ final class AppViewModel: ObservableObject {
         userDefaults.set(intervalDays, forKey: UserDefaultsKey.intervalDays)
         userDefaults.set(intervalHours, forKey: UserDefaultsKey.intervalHours)
         userDefaults.set(intervalMinutes, forKey: UserDefaultsKey.intervalMinutes)
+    }
+
+    private func loadCachedWallpapersIfAvailable() {
+        let cachedItems = restoreCachedWallpapers()
+        guard !cachedItems.isEmpty else {
+            cachedItemsLoaded = false
+            return
+        }
+
+        wallpapers = cachedItems
+        rebuildSections(from: cachedItems)
+        wallpaperCount = cachedItems.count
+        cachedItemsLoaded = true
+        hasLoadedOnce = true
+        isInitialLoading = false
+    }
+
+    private func restoreCachedWallpapers() -> [WallpaperItem] {
+        guard let data = userDefaults.data(forKey: UserDefaultsKey.cachedWallpaperItems),
+              let cachedItems = try? JSONDecoder().decode([CachedWallpaperItem].self, from: data) else {
+            return []
+        }
+
+        let fileManager = FileManager.default
+        return cachedItems.compactMap { cachedItem in
+            guard fileManager.fileExists(atPath: cachedItem.filePath),
+                  let categoryGuess = WallpaperItem.CategoryGuess(rawValue: cachedItem.categoryGuessRawValue) else {
+                return nil
+            }
+
+            return WallpaperItem(fileURL: URL(fileURLWithPath: cachedItem.filePath), categoryGuess: categoryGuess)
+        }
+    }
+
+    private func persistCachedWallpapers(_ items: [WallpaperItem]) {
+        let cachedItems = items.map {
+            CachedWallpaperItem(filePath: $0.fileURL.path, categoryGuessRawValue: $0.categoryGuess.rawValue)
+        }
+
+        if let data = try? JSONEncoder().encode(cachedItems) {
+            userDefaults.set(data, forKey: UserDefaultsKey.cachedWallpaperItems)
+        }
     }
 
     private func formattedIntervalDescription(from interval: TimeInterval) -> String {
