@@ -98,6 +98,7 @@ struct ContentView: View {
                             title: "Dynamic Wallpapers",
                             items: viewModel.dynamicItems,
                             isActive: viewModel.selectedShuffleScope == .dynamic,
+                            currentWallpaperPath: viewModel.currentWallpaperPath,
                             onSelect: viewModel.applyWallpaper
                         )
                     }
@@ -107,6 +108,7 @@ struct ContentView: View {
                             title: "Pictures",
                             items: viewModel.pictureItems,
                             isActive: viewModel.selectedShuffleScope == .pictures,
+                            currentWallpaperPath: viewModel.currentWallpaperPath,
                             onSelect: viewModel.applyWallpaper
                         )
                     }
@@ -121,7 +123,12 @@ private struct WallpaperSectionView: View {
     let title: String
     let items: [WallpaperItem]
     let isActive: Bool
+    let currentWallpaperPath: String
     let onSelect: (WallpaperItem) -> Void
+
+    private let columns = [
+        GridItem(.adaptive(minimum: 180, maximum: 260), spacing: 16)
+    ]
 
     var body: some View {
         GroupBox {
@@ -141,13 +148,18 @@ private struct WallpaperSectionView: View {
                     }
                 }
 
-                ForEach(items) { item in
-                    Button {
-                        onSelect(item)
-                    } label: {
-                        WallpaperRowView(item: item)
+                LazyVGrid(columns: columns, alignment: .leading, spacing: 16) {
+                    ForEach(items) { item in
+                        Button {
+                            onSelect(item)
+                        } label: {
+                            WallpaperCardView(
+                                item: item,
+                                isCurrentWallpaper: item.fileURL.path == currentWallpaperPath
+                            )
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -175,37 +187,91 @@ private struct StatusRow: View {
     }
 }
 
-private struct WallpaperRowView: View {
+private struct WallpaperCardView: View {
     let item: WallpaperItem
+    let isCurrentWallpaper: Bool
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(nsImage: ThumbnailProvider.thumbnail(for: item.fileURL))
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 84, height: 52)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.black.opacity(0.08), lineWidth: 1)
-                }
-
-            VStack(alignment: .leading, spacing: 6) {
-                Text(item.fileName)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-
-                Text(item.fileURL.path)
-                    .font(.system(size: 11, weight: .regular, design: .monospaced))
-                    .foregroundStyle(.secondary)
-                    .textSelection(.enabled)
-
-                ItemBadge(text: item.categoryGuess.rawValue)
+        VStack(alignment: .leading, spacing: 10) {
+            if isCurrentWallpaper {
+                Capsule()
+                    .fill(Color.accentColor.opacity(0.82))
+                    .frame(height: 3)
+                    .padding(.bottom, 2)
             }
 
-            Spacer(minLength: 0)
+            Rectangle()
+                .fill(Color.clear)
+                .aspectRatio(16.0 / 10.0, contentMode: .fit)
+                .overlay {
+                    Image(nsImage: ThumbnailProvider.thumbnail(for: item.fileURL))
+                        .resizable()
+                        .scaledToFill()
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay {
+                    ZStack(alignment: .topTrailing) {
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(
+                                isCurrentWallpaper
+                                    ? Color.accentColor.opacity(0.28)
+                                    : Color.black.opacity(0.05),
+                                lineWidth: isCurrentWallpaper ? 1.2 : 1
+                            )
+
+                        if isCurrentWallpaper {
+                            Text("Current")
+                                .font(.system(size: 10, weight: .medium))
+                                .foregroundStyle(.secondary)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 3)
+                                .background(Color(NSColor.windowBackgroundColor).opacity(0.96))
+                                .overlay {
+                                    Capsule()
+                                        .stroke(Color.black.opacity(0.08), lineWidth: 0.8)
+                                }
+                                .clipShape(Capsule())
+                                .padding(8)
+                        }
+                    }
+                }
+                .clipped()
+
+            Text(item.fileName)
+                .font(.headline.weight(.semibold))
+                .foregroundStyle(.primary)
+                .lineLimit(1)
+
+            ItemBadge(text: item.categoryGuess.rawValue)
+
+            Text(item.fileURL.path)
+                .font(.system(size: 11, weight: .regular, design: .monospaced))
+                .foregroundStyle(.tertiary)
+                .lineLimit(2)
+                .truncationMode(.middle)
+                .textSelection(.enabled)
         }
-        .contentShape(Rectangle())
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(NSColor.controlColor))
+        )
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(
+                    isCurrentWallpaper
+                        ? Color.accentColor.opacity(0.34)
+                        : Color.black.opacity(0.06),
+                    lineWidth: isCurrentWallpaper ? 1.2 : 1
+                )
+        }
+        .shadow(
+            color: .black.opacity(isCurrentWallpaper ? 0.08 : 0.035),
+            radius: isCurrentWallpaper ? 9 : 5,
+            y: isCurrentWallpaper ? 3 : 2
+        )
+        .contentShape(RoundedRectangle(cornerRadius: 14))
     }
 }
 

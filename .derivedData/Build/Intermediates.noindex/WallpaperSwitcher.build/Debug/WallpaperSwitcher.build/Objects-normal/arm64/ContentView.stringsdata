@@ -87,7 +87,7 @@
         "key": "%@ (%lld)",
         "location": {
           "startingColumn": 26,
-          "startingLine": 130
+          "startingLine": 137
         }
       },
       {
@@ -95,7 +95,15 @@
         "key": "active",
         "location": {
           "startingColumn": 30,
-          "startingLine": 134
+          "startingLine": 141
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 223
         }
       }
     ]

@@ -6,7 +6,7 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>B072B780-72E5-49EF-9B0E-7DB41EA443C6</key>
+		<key>737BB549-D5DD-4B16-819E-DBA25879DEF1</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>B072B780-72E5-49EF-9B0E-7DB41EA443C6.xcactivitylog</string>
+			<string>737BB549-D5DD-4B16-819E-DBA25879DEF1.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -40,13 +40,13 @@
 			<key>signature</key>
 			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
 			<key>timeStartedRecording</key>
-			<real>796019444.86751103</real>
+			<real>796020845.12212098</real>
 			<key>timeStoppedRecording</key>
-			<real>796019446.88540602</real>
+			<real>796020847.34775496</real>
 			<key>title</key>
 			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
 			<key>uniqueIdentifier</key>
-			<string>B072B780-72E5-49EF-9B0E-7DB41EA443C6</string>
+			<string>737BB549-D5DD-4B16-819E-DBA25879DEF1</string>
 		</dict>
 	</dict>
 </dict>
