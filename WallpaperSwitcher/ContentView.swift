@@ -21,6 +21,11 @@ struct ContentView: View {
             wallpapersSection
         }
         .padding(20)
+        .background(
+            WindowVisibilityObserver { isVisible in
+                ThumbnailProvider.setPreviewRenderingSuspended(!isVisible)
+            }
+        )
     }
 
     private var controlsSection: some View {
@@ -607,31 +612,166 @@ private struct ItemBadge: View {
     }
 }
 
-private enum ThumbnailProvider {
-    private static let cache = NSCache<NSURL, NSImage>()
+private struct WindowVisibilityObserver: NSViewRepresentable {
+    let onVisibilityChange: (Bool) -> Void
 
-    static func thumbnail(for fileURL: URL, maxPixelSize: CGFloat = 240) -> NSImage {
+    func makeNSView(context: Context) -> VisibilityObservingView {
+        let view = VisibilityObservingView()
+        view.onVisibilityChange = onVisibilityChange
+        return view
+    }
+
+    func updateNSView(_ nsView: VisibilityObservingView, context: Context) {
+        nsView.onVisibilityChange = onVisibilityChange
+        nsView.reportVisibilityIfNeeded()
+    }
+}
+
+private final class VisibilityObservingView: NSView {
+    var onVisibilityChange: ((Bool) -> Void)?
+
+    private weak var observedWindow: NSWindow?
+    private var observers: [NSObjectProtocol] = []
+    private var lastVisibleState: Bool?
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+
+        if observedWindow !== window {
+            unregisterObservers()
+            observedWindow = window
+            registerObservers()
+        }
+
+        reportVisibilityIfNeeded()
+    }
+
+    deinit {
+        unregisterObservers()
+    }
+
+    func reportVisibilityIfNeeded() {
+        let isVisible = isWindowEffectivelyVisible()
+        guard lastVisibleState != isVisible else {
+            return
+        }
+
+        lastVisibleState = isVisible
+        onVisibilityChange?(isVisible)
+    }
+
+    private func registerObservers() {
+        let notificationCenter = NotificationCenter.default
+
+        if let window = observedWindow {
+            let windowNotifications: [Notification.Name] = [
+                NSWindow.didMiniaturizeNotification,
+                NSWindow.didDeminiaturizeNotification,
+                NSWindow.didBecomeMainNotification,
+                NSWindow.didResignMainNotification,
+                NSWindow.didChangeOcclusionStateNotification,
+                NSWindow.willCloseNotification
+            ]
+
+            for name in windowNotifications {
+                observers.append(
+                    notificationCenter.addObserver(forName: name, object: window, queue: .main) { [weak self] _ in
+                        self?.reportVisibilityIfNeeded()
+                    }
+                )
+            }
+        }
+
+        let appNotifications: [Notification.Name] = [
+            NSApplication.didHideNotification,
+            NSApplication.didUnhideNotification
+        ]
+
+        for name in appNotifications {
+            observers.append(
+                notificationCenter.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                    self?.reportVisibilityIfNeeded()
+                }
+            )
+        }
+    }
+
+    private func unregisterObservers() {
+        let notificationCenter = NotificationCenter.default
+        observers.forEach(notificationCenter.removeObserver)
+        observers.removeAll()
+    }
+
+    private func isWindowEffectivelyVisible() -> Bool {
+        guard let window else {
+            return false
+        }
+
+        return window.isVisible
+            && !window.isMiniaturized
+            && !NSApp.isHidden
+            && window.occlusionState.contains(.visible)
+    }
+}
+
+private enum ThumbnailProvider {
+    private static let cache: NSCache<NSURL, NSImage> = {
+        let cache = NSCache<NSURL, NSImage>()
+        cache.countLimit = 160
+        cache.totalCostLimit = 64 * 1024 * 1024
+        return cache
+    }()
+    private static let suspendedPlaceholderImage: NSImage = {
+        if let image = NSImage(systemSymbolName: "photo", accessibilityDescription: nil) {
+            image.size = NSSize(width: 84, height: 52)
+            return image
+        }
+
+        return NSImage(size: NSSize(width: 84, height: 52))
+    }()
+    private static var isPreviewRenderingSuspended = false
+
+    static func setPreviewRenderingSuspended(_ suspended: Bool) {
+        guard suspended != isPreviewRenderingSuspended else {
+            return
+        }
+
+        isPreviewRenderingSuspended = suspended
+
+        if suspended {
+            cache.removeAllObjects()
+        }
+    }
+
+    static func thumbnail(for fileURL: URL, maxPixelSize: CGFloat = 280) -> NSImage {
         if let cachedImage = cache.object(forKey: fileURL as NSURL) {
             return cachedImage
+        }
+
+        if isPreviewRenderingSuspended {
+            return suspendedPlaceholderImage
         }
 
         if let imageSource = CGImageSourceCreateWithURL(fileURL as CFURL, nil) {
             let options: [CFString: Any] = [
                 kCGImageSourceCreateThumbnailFromImageAlways: true,
                 kCGImageSourceThumbnailMaxPixelSize: Int(maxPixelSize),
-                kCGImageSourceCreateThumbnailWithTransform: true
+                kCGImageSourceCreateThumbnailWithTransform: true,
+                kCGImageSourceShouldCache: false,
+                kCGImageSourceShouldCacheImmediately: false
             ]
 
             if let cgImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) {
                 let image = NSImage(cgImage: cgImage, size: .zero)
-                cache.setObject(image, forKey: fileURL as NSURL)
+                let cost = max(cgImage.width * cgImage.height * 4, 1)
+                cache.setObject(image, forKey: fileURL as NSURL, cost: cost)
                 return image
             }
         }
 
         let fallback = NSWorkspace.shared.icon(forFile: fileURL.path)
         fallback.size = NSSize(width: 84, height: 52)
-        cache.setObject(fallback, forKey: fileURL as NSURL)
+        cache.setObject(fallback, forKey: fileURL as NSURL, cost: 84 * 52 * 4)
         return fallback
     }
 }

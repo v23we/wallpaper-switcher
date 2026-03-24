@@ -7,7 +7,7 @@
         "key": "状态",
         "location": {
           "startingColumn": 18,
-          "startingLine": 149
+          "startingLine": 154
         }
       },
       {
@@ -15,7 +15,7 @@
         "key": "Refresh Scan",
         "location": {
           "startingColumn": 24,
-          "startingLine": 29
+          "startingLine": 34
         }
       },
       {
@@ -23,7 +23,7 @@
         "key": "Shuffle Now",
         "location": {
           "startingColumn": 24,
-          "startingLine": 33
+          "startingLine": 38
         }
       },
       {
@@ -31,7 +31,7 @@
         "key": "Start Auto Shuffle",
         "location": {
           "startingColumn": 24,
-          "startingLine": 38
+          "startingLine": 43
         }
       },
       {
@@ -39,7 +39,7 @@
         "key": "Stop Auto Shuffle",
         "location": {
           "startingColumn": 24,
-          "startingLine": 43
+          "startingLine": 48
         }
       },
       {
@@ -47,7 +47,7 @@
         "key": "Shuffle Scope",
         "location": {
           "startingColumn": 24,
-          "startingLine": 50
+          "startingLine": 55
         }
       },
       {
@@ -55,7 +55,7 @@
         "key": "Interval",
         "location": {
           "startingColumn": 26,
-          "startingLine": 61
+          "startingLine": 66
         }
       },
       {
@@ -63,7 +63,7 @@
         "key": "Custom",
         "location": {
           "startingColumn": 26,
-          "startingLine": 97
+          "startingLine": 102
         }
       },
       {
@@ -71,7 +71,7 @@
         "key": "d",
         "location": {
           "startingColumn": 26,
-          "startingLine": 113
+          "startingLine": 118
         }
       },
       {
@@ -79,7 +79,7 @@
         "key": "h",
         "location": {
           "startingColumn": 26,
-          "startingLine": 127
+          "startingLine": 132
         }
       },
       {
@@ -87,7 +87,7 @@
         "key": "min",
         "location": {
           "startingColumn": 26,
-          "startingLine": 141
+          "startingLine": 146
         }
       },
       {
@@ -95,7 +95,7 @@
         "key": "",
         "location": {
           "startingColumn": 25,
-          "startingLine": 103
+          "startingLine": 108
         }
       },
       {
@@ -103,7 +103,7 @@
         "key": "",
         "location": {
           "startingColumn": 25,
-          "startingLine": 117
+          "startingLine": 122
         }
       },
       {
@@ -111,7 +111,7 @@
         "key": "",
         "location": {
           "startingColumn": 25,
-          "startingLine": 131
+          "startingLine": 136
         }
       },
       {
@@ -119,7 +119,7 @@
         "key": "扫描结果",
         "location": {
           "startingColumn": 26,
-          "startingLine": 168
+          "startingLine": 173
         }
       },
       {
@@ -127,7 +127,7 @@
         "key": "未扫描到壁纸资源",
         "location": {
           "startingColumn": 30,
-          "startingLine": 170
+          "startingLine": 175
         }
       },
       {
@@ -135,7 +135,7 @@
         "key": "尝试过的路径：",
         "location": {
           "startingColumn": 30,
-          "startingLine": 173
+          "startingLine": 178
         }
       },
       {
@@ -143,7 +143,7 @@
         "key": "Loading wallpapers...",
         "location": {
           "startingColumn": 22,
-          "startingLine": 233
+          "startingLine": 238
         }
       },
       {
@@ -151,7 +151,7 @@
         "key": "%@ (%lld)",
         "location": {
           "startingColumn": 26,
-          "startingLine": 286
+          "startingLine": 291
         }
       },
       {
@@ -159,7 +159,7 @@
         "key": "active",
         "location": {
           "startingColumn": 30,
-          "startingLine": 290
+          "startingLine": 295
         }
       },
       {
@@ -167,7 +167,7 @@
         "key": "Current",
         "location": {
           "startingColumn": 30,
-          "startingLine": 459
+          "startingLine": 464
         }
       },
       {
@@ -175,7 +175,7 @@
         "key": "Current",
         "location": {
           "startingColumn": 34,
-          "startingLine": 541
+          "startingLine": 546
         }
       }
     ]

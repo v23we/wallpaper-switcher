@@ -4,7 +4,8 @@ import Foundation
 @MainActor
 final class WallpaperShuffleService {
     private let displayResolver: BuiltInDisplayResolver
-    private var timer: Timer?
+    private let timerQueue = DispatchQueue(label: "WallpaperSwitcher.autoShuffleTimer", qos: .utility)
+    private var timer: DispatchSourceTimer?
     private var lastAppliedItemID: WallpaperItem.ID?
 
     private(set) var currentWallpaperURL: URL?
@@ -17,7 +18,8 @@ final class WallpaperShuffleService {
     }
 
     deinit {
-        timer?.invalidate()
+        timer?.setEventHandler {}
+        timer?.cancel()
     }
 
     func apply(_ item: WallpaperItem) {
@@ -69,19 +71,30 @@ final class WallpaperShuffleService {
 
         currentInterval = interval
         isAutoShuffleRunning = true
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
-            guard let self else {
-                return
-            }
+        let timer = DispatchSource.makeTimerSource(queue: timerQueue)
+        let leewaySeconds = max(interval * 0.1, 1)
 
+        timer.schedule(
+            deadline: .now() + interval,
+            repeating: interval,
+            leeway: .milliseconds(Int(leewaySeconds * 1000))
+        )
+        timer.setEventHandler { [weak self] in
             Task { @MainActor in
+                guard let self else {
+                    return
+                }
+
                 self.shuffle(from: itemsProvider())
             }
         }
+        timer.resume()
+        self.timer = timer
     }
 
     func stopAutoShuffle(clearError: Bool = true) {
-        timer?.invalidate()
+        timer?.setEventHandler {}
+        timer?.cancel()
         timer = nil
         isAutoShuffleRunning = false
         currentInterval = nil

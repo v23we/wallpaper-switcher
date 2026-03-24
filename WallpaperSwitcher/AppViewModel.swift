@@ -69,6 +69,7 @@ final class AppViewModel: ObservableObject {
     private var localStatusMessage: String?
     private let userDefaults: UserDefaults
     private var isAdjustingIntervalInternally = false
+    private var didStartInitialLoad = false
 
     static let intervalPresets: [IntervalPreset] = [
         IntervalPreset(label: "1m", days: 0, hours: 0, minutes: 1),
@@ -109,19 +110,26 @@ final class AppViewModel: ObservableObject {
     }
 
     func initialLoad() {
+        guard !didStartInitialLoad else {
+            shuffleService.refreshCurrentWallpaper()
+            syncState()
+            return
+        }
+
+        didStartInitialLoad = true
         shuffleService.refreshCurrentWallpaper()
         loadCachedWallpapersIfAvailable()
         syncState()
-        refreshScan(isInitialLoad: true)
+        refreshScan(isInitialLoad: true, priority: .utility)
     }
 
-    func refreshScan(isInitialLoad: Bool = false) {
+    func refreshScan(isInitialLoad: Bool = false, priority: TaskPriority = .userInitiated) {
         if isInitialLoad && !cachedItemsLoaded {
             isInitialLoading = true
         }
 
         Task { [weak self, scanner] in
-            let result = await Task.detached(priority: .userInitiated) {
+            let result = await Task.detached(priority: priority) {
                 scanner.scan()
             }.value
 
