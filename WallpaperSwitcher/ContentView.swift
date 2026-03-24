@@ -102,6 +102,20 @@ struct ContentView: View {
                     TextField(
                         "",
                         value: Binding(
+                            get: { viewModel.intervalDays },
+                            set: { viewModel.updateInterval(days: $0) }
+                        ),
+                        formatter: Self.intervalValueFormatter
+                    )
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 52)
+
+                    Text("d")
+                        .foregroundStyle(.secondary)
+
+                    TextField(
+                        "",
+                        value: Binding(
                             get: { viewModel.intervalHours },
                             set: { viewModel.updateInterval(hours: $0) }
                         ),

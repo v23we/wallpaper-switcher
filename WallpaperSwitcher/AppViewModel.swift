@@ -4,6 +4,7 @@ import Foundation
 final class AppViewModel: ObservableObject {
     struct IntervalPreset: Identifiable, Hashable {
         let label: String
+        let days: Int
         let hours: Int
         let minutes: Int
 
@@ -38,6 +39,11 @@ final class AppViewModel: ObservableObject {
     @Published private(set) var lastErrorMessage = "无"
     @Published private(set) var autoShuffleStatusText = "未启动"
     @Published var selectedShuffleScope: ShuffleScope = .all
+    @Published var intervalDays: Int {
+        didSet {
+            handleIntervalComponentChange()
+        }
+    }
     @Published var intervalHours: Int {
         didSet {
             handleIntervalComponentChange()
@@ -57,15 +63,16 @@ final class AppViewModel: ObservableObject {
     private var isAdjustingIntervalInternally = false
 
     static let intervalPresets: [IntervalPreset] = [
-        IntervalPreset(label: "1m", hours: 0, minutes: 1),
-        IntervalPreset(label: "5m", hours: 0, minutes: 5),
-        IntervalPreset(label: "15m", hours: 0, minutes: 15),
-        IntervalPreset(label: "30m", hours: 0, minutes: 30),
-        IntervalPreset(label: "1h", hours: 1, minutes: 0),
-        IntervalPreset(label: "2h", hours: 2, minutes: 0)
+        IntervalPreset(label: "1m", days: 0, hours: 0, minutes: 1),
+        IntervalPreset(label: "5m", days: 0, hours: 0, minutes: 5),
+        IntervalPreset(label: "15m", days: 0, hours: 0, minutes: 15),
+        IntervalPreset(label: "30m", days: 0, hours: 0, minutes: 30),
+        IntervalPreset(label: "1h", days: 0, hours: 1, minutes: 0),
+        IntervalPreset(label: "2h", days: 0, hours: 2, minutes: 0)
     ]
 
     private enum UserDefaultsKey {
+        static let intervalDays = "WallpaperSwitcher.intervalDays"
         static let intervalHours = "WallpaperSwitcher.intervalHours"
         static let intervalMinutes = "WallpaperSwitcher.intervalMinutes"
     }
@@ -79,11 +86,14 @@ final class AppViewModel: ObservableObject {
         self.shuffleService = shuffleService ?? WallpaperShuffleService()
         self.userDefaults = userDefaults
 
+        let storedDaysObject = userDefaults.object(forKey: UserDefaultsKey.intervalDays)
         let storedHoursObject = userDefaults.object(forKey: UserDefaultsKey.intervalHours)
         let storedMinutesObject = userDefaults.object(forKey: UserDefaultsKey.intervalMinutes)
+        let storedDays = storedDaysObject == nil ? 0 : userDefaults.integer(forKey: UserDefaultsKey.intervalDays)
         let storedHours = storedHoursObject == nil ? 0 : userDefaults.integer(forKey: UserDefaultsKey.intervalHours)
         let storedMinutes = storedMinutesObject == nil ? 5 : userDefaults.integer(forKey: UserDefaultsKey.intervalMinutes)
-        let normalized = AppViewModel.normalizedInterval(hours: storedHours, minutes: storedMinutes)
+        let normalized = AppViewModel.normalizedInterval(days: storedDays, hours: storedHours, minutes: storedMinutes)
+        self.intervalDays = normalized.days
         self.intervalHours = normalized.hours
         self.intervalMinutes = normalized.minutes
     }
@@ -174,7 +184,7 @@ final class AppViewModel: ObservableObject {
     }
 
     var effectiveIntervalSeconds: TimeInterval {
-        TimeInterval((intervalHours * 3600) + (intervalMinutes * 60))
+        TimeInterval((intervalDays * 24 * 3600) + (intervalHours * 3600) + (intervalMinutes * 60))
     }
 
     var intervalPresetOptions: [IntervalPreset] {
@@ -183,20 +193,22 @@ final class AppViewModel: ObservableObject {
 
     var activeIntervalPreset: IntervalPreset? {
         Self.intervalPresets.first { preset in
-            preset.hours == intervalHours && preset.minutes == intervalMinutes
+            preset.days == intervalDays && preset.hours == intervalHours && preset.minutes == intervalMinutes
         }
     }
 
     func applyIntervalPreset(_ preset: IntervalPreset) {
-        updateInterval(hours: preset.hours, minutes: preset.minutes)
+        updateInterval(days: preset.days, hours: preset.hours, minutes: preset.minutes)
     }
 
-    func updateInterval(hours: Int? = nil, minutes: Int? = nil) {
+    func updateInterval(days: Int? = nil, hours: Int? = nil, minutes: Int? = nil) {
+        let nextDays = days ?? intervalDays
         let nextHours = hours ?? intervalHours
         let nextMinutes = minutes ?? intervalMinutes
-        let normalized = AppViewModel.normalizedInterval(hours: nextHours, minutes: nextMinutes)
+        let normalized = AppViewModel.normalizedInterval(days: nextDays, hours: nextHours, minutes: nextMinutes)
 
         isAdjustingIntervalInternally = true
+        intervalDays = normalized.days
         intervalHours = normalized.hours
         intervalMinutes = normalized.minutes
         isAdjustingIntervalInternally = false
@@ -230,7 +242,7 @@ final class AppViewModel: ObservableObject {
         guard !isAdjustingIntervalInternally else {
             return
         }
-        updateInterval(hours: intervalHours, minutes: intervalMinutes)
+        updateInterval(days: intervalDays, hours: intervalHours, minutes: intervalMinutes)
     }
 
     private func reapplyAutoShuffleIntervalIfNeeded() {
@@ -244,35 +256,44 @@ final class AppViewModel: ObservableObject {
     }
 
     private func persistInterval() {
+        userDefaults.set(intervalDays, forKey: UserDefaultsKey.intervalDays)
         userDefaults.set(intervalHours, forKey: UserDefaultsKey.intervalHours)
         userDefaults.set(intervalMinutes, forKey: UserDefaultsKey.intervalMinutes)
     }
 
     private func formattedIntervalDescription(from interval: TimeInterval) -> String {
         let totalMinutes = max(Int(interval / 60), 1)
-        let hours = totalMinutes / 60
-        let minutes = totalMinutes % 60
+        let days = totalMinutes / (24 * 60)
+        let remainingMinutesAfterDays = totalMinutes % (24 * 60)
+        let hours = remainingMinutesAfterDays / 60
+        let minutes = remainingMinutesAfterDays % 60
+        var components: [String] = []
 
-        if hours > 0, minutes > 0 {
-            return "每 \(hours) 小时 \(minutes) 分钟"
+        if days > 0 {
+            components.append("\(days) 天")
         }
 
         if hours > 0 {
-            return "每 \(hours) 小时"
+            components.append("\(hours) 小时")
         }
 
-        return "每 \(minutes) 分钟"
+        if minutes > 0 {
+            components.append("\(minutes) 分钟")
+        }
+
+        return "每 " + components.joined(separator: " ")
     }
 
-    private static func normalizedInterval(hours: Int, minutes: Int) -> (hours: Int, minutes: Int) {
+    private static func normalizedInterval(days: Int, hours: Int, minutes: Int) -> (days: Int, hours: Int, minutes: Int) {
+        let clampedDays = min(max(days, 0), 99)
         let clampedHours = min(max(hours, 0), 23)
         let clampedMinutes = min(max(minutes, 0), 59)
 
-        if clampedHours == 0, clampedMinutes == 0 {
-            return (0, 1)
+        if clampedDays == 0, clampedHours == 0, clampedMinutes == 0 {
+            return (0, 0, 1)
         }
 
-        return (clampedHours, clampedMinutes)
+        return (clampedDays, clampedHours, clampedMinutes)
     }
 
     private func rebuildSections(from items: [WallpaperItem]) {
