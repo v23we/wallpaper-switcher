@@ -378,15 +378,6 @@ private struct WallpaperListRowView: View {
             RoundedRectangle(cornerRadius: 14)
                 .fill(Color(NSColor.controlColor))
         )
-        .overlay(alignment: .topLeading) {
-            if isCurrentWallpaper {
-                Capsule()
-                    .fill(Color.accentColor.opacity(0.82))
-                    .frame(width: 62, height: 3)
-                    .padding(.top, 10)
-                    .padding(.leading, 14)
-            }
-        }
         .overlay {
             RoundedRectangle(cornerRadius: 14)
                 .stroke(
