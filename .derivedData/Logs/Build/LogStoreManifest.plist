@@ -6,7 +6,7 @@
 	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>737BB549-D5DD-4B16-819E-DBA25879DEF1</key>
+		<key>46AC6B7B-DEA7-46A1-862E-D758B9E87B18</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>737BB549-D5DD-4B16-819E-DBA25879DEF1.xcactivitylog</string>
+			<string>46AC6B7B-DEA7-46A1-862E-D758B9E87B18.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -40,13 +40,55 @@
 			<key>signature</key>
 			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
 			<key>timeStartedRecording</key>
-			<real>796020845.12212098</real>
+			<real>796026463.32991898</real>
 			<key>timeStoppedRecording</key>
-			<real>796020847.34775496</real>
+			<real>796026466.46262503</real>
 			<key>title</key>
 			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
 			<key>uniqueIdentifier</key>
-			<string>737BB549-D5DD-4B16-819E-DBA25879DEF1</string>
+			<string>46AC6B7B-DEA7-46A1-862E-D758B9E87B18</string>
+		</dict>
+		<key>D6B2664E-4E55-4928-BB4D-C02B1081E9E2</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>D6B2664E-4E55-4928-BB4D-C02B1081E9E2.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>WallpaperSwitcher project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>WallpaperSwitcher</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
+			<key>timeStartedRecording</key>
+			<real>796026145.21012497</real>
+			<key>timeStoppedRecording</key>
+			<real>796026148.02608097</real>
+			<key>title</key>
+			<string>Building project WallpaperSwitcher with scheme WallpaperSwitcher</string>
+			<key>uniqueIdentifier</key>
+			<string>D6B2664E-4E55-4928-BB4D-C02B1081E9E2</string>
 		</dict>
 	</dict>
 </dict>

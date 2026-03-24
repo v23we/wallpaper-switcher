@@ -143,7 +143,7 @@
         "key": "%@ (%lld)",
         "location": {
           "startingColumn": 26,
-          "startingLine": 227
+          "startingLine": 246
         }
       },
       {
@@ -151,7 +151,15 @@
         "key": "active",
         "location": {
           "startingColumn": 30,
-          "startingLine": 231
+          "startingLine": 250
+        }
+      },
+      {
+        "comment": "",
+        "key": "Current",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 350
         }
       },
       {
@@ -159,7 +167,7 @@
         "key": "Current",
         "location": {
           "startingColumn": 34,
-          "startingLine": 313
+          "startingLine": 441
         }
       }
     ]

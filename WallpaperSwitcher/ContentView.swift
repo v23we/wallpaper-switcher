@@ -181,31 +181,45 @@ struct ContentView: View {
                 .padding(.vertical, 4)
             }
         } else {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    if !viewModel.dynamicItems.isEmpty {
-                        WallpaperSectionView(
-                            title: "Dynamic Wallpapers",
-                            items: viewModel.dynamicItems,
-                            isActive: viewModel.selectedShuffleScope == .dynamic,
-                            currentWallpaperPath: viewModel.currentWallpaperPath,
-                            onSelect: viewModel.applyWallpaper
-                        )
-                    }
+            GeometryReader { proxy in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        if !viewModel.dynamicItems.isEmpty {
+                            WallpaperSectionView(
+                                title: "Dynamic Wallpapers",
+                                items: viewModel.dynamicItems,
+                                isActive: viewModel.selectedShuffleScope == .dynamic,
+                                currentWallpaperPath: viewModel.currentWallpaperPath,
+                                availableWidth: proxy.size.width,
+                                onSelect: viewModel.applyWallpaper
+                            )
+                        }
 
-                    if !viewModel.pictureItems.isEmpty {
-                        WallpaperSectionView(
-                            title: "Pictures",
-                            items: viewModel.pictureItems,
-                            isActive: viewModel.selectedShuffleScope == .pictures,
-                            currentWallpaperPath: viewModel.currentWallpaperPath,
-                            onSelect: viewModel.applyWallpaper
-                        )
+                        if !viewModel.pictureItems.isEmpty {
+                            WallpaperSectionView(
+                                title: "Pictures",
+                                items: viewModel.pictureItems,
+                                isActive: viewModel.selectedShuffleScope == .pictures,
+                                currentWallpaperPath: viewModel.currentWallpaperPath,
+                                availableWidth: proxy.size.width,
+                                onSelect: viewModel.applyWallpaper
+                            )
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 2)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
+    }
+}
+
+private enum WallpaperSectionLayoutMode {
+    case grid
+    case list
+
+    static func forWidth(_ width: CGFloat) -> Self {
+        width < 900 ? .list : .grid
     }
 }
 
@@ -214,11 +228,16 @@ private struct WallpaperSectionView: View {
     let items: [WallpaperItem]
     let isActive: Bool
     let currentWallpaperPath: String
+    let availableWidth: CGFloat
     let onSelect: (WallpaperItem) -> Void
 
     private let columns = [
         GridItem(.adaptive(minimum: 180, maximum: 260), spacing: 16)
     ]
+
+    private var layoutMode: WallpaperSectionLayoutMode {
+        WallpaperSectionLayoutMode.forWidth(availableWidth)
+    }
 
     var body: some View {
         GroupBox {
@@ -238,17 +257,34 @@ private struct WallpaperSectionView: View {
                     }
                 }
 
-                LazyVGrid(columns: columns, alignment: .leading, spacing: 16) {
-                    ForEach(items) { item in
-                        Button {
-                            onSelect(item)
-                        } label: {
-                            WallpaperCardView(
-                                item: item,
-                                isCurrentWallpaper: item.fileURL.path == currentWallpaperPath
-                            )
+                switch layoutMode {
+                case .grid:
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 16) {
+                        ForEach(items) { item in
+                            Button {
+                                onSelect(item)
+                            } label: {
+                                WallpaperCardView(
+                                    item: item,
+                                    isCurrentWallpaper: item.fileURL.path == currentWallpaperPath
+                                )
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
+                    }
+                case .list:
+                    VStack(alignment: .leading, spacing: 10) {
+                        ForEach(items) { item in
+                            Button {
+                                onSelect(item)
+                            } label: {
+                                WallpaperListRowView(
+                                    item: item,
+                                    isCurrentWallpaper: item.fileURL.path == currentWallpaperPath
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
             }
@@ -274,6 +310,98 @@ private struct StatusRow: View {
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+}
+
+private struct WallpaperListRowView: View {
+    let item: WallpaperItem
+    let isCurrentWallpaper: Bool
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Rectangle()
+                .fill(Color.clear)
+                .frame(width: 122, height: 76)
+                .overlay {
+                    Image(nsImage: ThumbnailProvider.thumbnail(for: item.fileURL))
+                        .resizable()
+                        .scaledToFill()
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(
+                            isCurrentWallpaper
+                                ? Color.accentColor.opacity(0.26)
+                                : Color.black.opacity(0.05),
+                            lineWidth: isCurrentWallpaper ? 1.1 : 1
+                        )
+                }
+                .clipped()
+
+            VStack(alignment: .leading, spacing: 7) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text(item.fileName)
+                        .font(.headline.weight(.semibold))
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
+
+                    if isCurrentWallpaper {
+                        Text("Current")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Color(NSColor.windowBackgroundColor).opacity(0.96))
+                            .overlay {
+                                Capsule()
+                                    .stroke(Color.black.opacity(0.08), lineWidth: 0.8)
+                            }
+                            .clipShape(Capsule())
+                    }
+                }
+
+                ItemBadge(text: item.categoryGuess.rawValue)
+
+                Text(item.fileURL.path)
+                    .font(.system(size: 11, weight: .regular, design: .monospaced))
+                    .foregroundStyle(.tertiary)
+                    .lineLimit(2)
+                    .truncationMode(.middle)
+                    .textSelection(.enabled)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color(NSColor.controlColor))
+        )
+        .overlay(alignment: .topLeading) {
+            if isCurrentWallpaper {
+                Capsule()
+                    .fill(Color.accentColor.opacity(0.82))
+                    .frame(width: 62, height: 3)
+                    .padding(.top, 10)
+                    .padding(.leading, 14)
+            }
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(
+                    isCurrentWallpaper
+                        ? Color.accentColor.opacity(0.32)
+                        : Color.black.opacity(0.06),
+                    lineWidth: isCurrentWallpaper ? 1.15 : 1
+                )
+        }
+        .shadow(
+            color: .black.opacity(isCurrentWallpaper ? 0.075 : 0.03),
+            radius: isCurrentWallpaper ? 8 : 4,
+            y: isCurrentWallpaper ? 3 : 2
+        )
+        .contentShape(RoundedRectangle(cornerRadius: 14))
     }
 }
 

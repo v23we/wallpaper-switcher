@@ -68,7 +68,8 @@ final class AppViewModel: ObservableObject {
         IntervalPreset(label: "15m", days: 0, hours: 0, minutes: 15),
         IntervalPreset(label: "30m", days: 0, hours: 0, minutes: 30),
         IntervalPreset(label: "1h", days: 0, hours: 1, minutes: 0),
-        IntervalPreset(label: "2h", days: 0, hours: 2, minutes: 0)
+        IntervalPreset(label: "2h", days: 0, hours: 2, minutes: 0),
+        IntervalPreset(label: "24h", days: 1, hours: 0, minutes: 0)
     ]
 
     private enum UserDefaultsKey {

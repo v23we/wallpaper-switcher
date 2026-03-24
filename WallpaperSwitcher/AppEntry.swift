@@ -7,7 +7,7 @@ struct WallpaperSwitcherApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(viewModel: viewModel)
-                .frame(minWidth: 980, minHeight: 700)
+                .frame(minWidth: 780, minHeight: 620)
                 .task {
                     viewModel.initialLoad()
                 }
